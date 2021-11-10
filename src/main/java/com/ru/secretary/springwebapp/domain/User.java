@@ -17,6 +17,7 @@ public class User {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "user")
+    //@OneToMany()
     private Set<Task> tasks = new HashSet<>();
 
     public User() {

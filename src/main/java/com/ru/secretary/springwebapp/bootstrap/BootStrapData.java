@@ -24,16 +24,15 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        User biba = new User("Biba Chelemyakin", "1234",  "+79105226617");
-        Task read = new Task(biba, "Read", "Read an important article", new Date(), TaskPriority.MIDDLE);
-
         User testUser = new User("test", "test", "544104");
+        Task read = new Task(testUser, "Read", "Read an important article", new Date(), TaskPriority.MIDDLE);
 
-        biba.getTasks().add(read);
-        read.setUser(biba);
-        userRepository.save(biba);
+
+        testUser.getTasks().add(read);
+        read.setUser(testUser);
         userRepository.save(testUser);
         taskRepository.save(read);
+
 
         System.out.println("Number of users " + userRepository.count());
     }

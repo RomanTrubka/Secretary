@@ -34,7 +34,6 @@ public class User implements UserDetails {
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.role= UserRole.USER;
     }
 
     @Override
@@ -117,7 +116,6 @@ public class User implements UserDetails {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", tasks=" + tasks +
                 '}';
     }
 

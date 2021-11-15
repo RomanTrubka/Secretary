@@ -2,7 +2,6 @@ package com.ru.secretary.springwebapp.controllers;
 
 import com.ru.secretary.springwebapp.domain.User;
 import com.ru.secretary.springwebapp.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

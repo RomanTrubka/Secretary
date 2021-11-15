@@ -19,6 +19,6 @@ public class UserController {
 
         model.addAttribute("users", userRepository.findAll());
 
-        return "users/list";
+        return "list";
     }
 }

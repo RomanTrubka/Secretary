@@ -23,7 +23,7 @@ public class User implements UserDetails {
     private String password;
     private UserRole role= UserRole.USER;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy =  "user")
     //@OneToMany()
     private Set<Task> tasks = new HashSet<>();
 

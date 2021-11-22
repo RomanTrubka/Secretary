@@ -8,6 +8,7 @@ import com.ru.secretary.springwebapp.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,21 +45,20 @@ public class TasksController {
         return "addTask";
     }
 
-    @PostMapping("/tasks/add")
+    @PostMapping("/tasks/add") //TODO add all fields
     public String addTask(Model model, Task task) {
 
-        if (task.getTitle() == null) {
-            model.addAttribute("message", "Title can`t be empty!");
+        if ((task.getTitle() == null) || (task.getTitle()=="")) {
+            model.addAttribute("resultMessage", "Title can`t be empty!");
             return "addTask";
         }
 
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userRepository.findByName(userName);
         task.setUser(user);
-        task.setDate(new Date());
-        task.setPriority(TaskPriority.LOW);
         user.getTasks().add(task);
         taskRepository.save(task);
+        model.addAttribute("resultMessage", "New task added.");
 
         return "redirect:/tasks";
     }

@@ -16,7 +16,7 @@ public class Task {
     @JoinColumn()
     private User user; //TODO should it be like this or we need to keep user_id only?
 
-    private String title = "";
+    private String title;
     private String description = "";
     private Date date = new Date(); //TODO change Date to smth else
     private TaskPriority priority = TaskPriority.LOW;

@@ -1,6 +1,10 @@
 package com.ru.secretary.springwebapp.domain;
 
 
+import com.google.i18n.phonenumbers.PhoneNumberMatch;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
+import com.ru.secretary.springwebapp.util.PhoneNumberParser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,13 +22,16 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     private String name;
+
+    @Column(unique = true)
     private String phoneNumber;
+
     private String password;
     private UserRole role= UserRole.USER;
 
     @OneToMany(mappedBy =  "user")
-    //@OneToMany()
     private Set<Task> tasks = new HashSet<>();
 
     public User() {
@@ -33,7 +40,7 @@ public class User implements UserDetails {
     public User(String name, String password, String phoneNumber) {
         this.name = name;
         this.password = password;
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = PhoneNumberParser.getInstance().ParsePhoneNumber(phoneNumber);
     }
 
     @Override
@@ -99,7 +106,7 @@ public class User implements UserDetails {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = PhoneNumberParser.getInstance().ParsePhoneNumber(phoneNumber);
     }
 
     public Set<Task> getTasks() {

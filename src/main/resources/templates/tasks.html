@@ -10,9 +10,17 @@
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.3/css/dx.light.css" />
+    <link rel="stylesheet" href="../static/index.css">
+
+    <script src="https://cdn3.devexpress.com/jslib/21.2.3/js/dx.all.js"></script>
+    <script src="../static/index.js"></script>
+    <script src="../static/data.js"></script>
 </head>
 
-<body>
+<body class="dx-viewport">
 
 <div th:insert="scripts :: scripts"></div>
 
@@ -36,7 +44,7 @@
     <tr th:each = "task : ${tasks}">
         <td th:text="${task.title}">123</td>
         <td th:text="${task.description}">123</td>
-        <td th:text="${task.date}">123</td>
+        <td th:text="${task.startDate}">123</td>
         <td th:text="${task.priority}">123</td>
     </tr>
 </table>
@@ -44,6 +52,8 @@
 <a href="/tasks/add">Add a new task</a>
 
 </div>
+
+<div id="scheduler"></div>
 
 </body>
 

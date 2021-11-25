@@ -3,9 +3,8 @@ package com.ru.secretary.springwebapp.controllers;
 import com.ru.secretary.springwebapp.domain.User;
 import com.ru.secretary.springwebapp.repositories.TaskRepository;
 import com.ru.secretary.springwebapp.repositories.UserRepository;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -21,8 +20,8 @@ public class UserController {
     }
 
     @PostMapping("/profile")
-    public String addPhoneNumber(String phoneNumber, Authentication authentication) {
-        User currentUser = userRepository.findByName(authentication.getName());
+    public String addPhoneNumber(String phoneNumber,
+                                 @AuthenticationPrincipal User currentUser) {
 
         currentUser.setPhoneNumber(phoneNumber);
         userRepository.save(currentUser);

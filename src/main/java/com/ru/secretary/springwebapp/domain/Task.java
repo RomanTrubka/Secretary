@@ -1,10 +1,13 @@
 package com.ru.secretary.springwebapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "task", schema = "public")
+@JsonIgnoreProperties(value = { "user", "id" })
 public class Task {
 
     @Id
@@ -18,18 +21,31 @@ public class Task {
 
     private String title;
     private String description = "";
-    private Date date = new Date(); //TODO change Date to smth else
+    private Date startDate = new Date(); //TODO change Date to smth else
+    private Date endDate = new Date();
+    private boolean allDay = true;
     private TaskPriority priority = TaskPriority.LOW;
 
     public Task() {
     }
 
-    public Task(User user, String title, String description, Date date, TaskPriority priority) {
+    public Task(User user, String title, String description, Date startDate, Date endDate,
+                boolean allDay, TaskPriority priority) {
         this.user = user;
         this.title = title;
         this.description = description;
-        this.date = date;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.allDay = allDay;
         this.priority = priority;
+    }
+
+    //Quick constructor
+    public Task(User user, String title, String description, Date startDate) {
+        this.user = user;
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
     }
 
     public Long getId() {
@@ -64,12 +80,20 @@ public class Task {
         this.description = description;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(Date date) {
+        this.startDate = date;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public TaskPriority getPriority() {
@@ -87,7 +111,8 @@ public class Task {
                 ", user=" + user +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", date=" + date +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", priority=" + priority +
                 '}';
     }

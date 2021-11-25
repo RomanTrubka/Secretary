@@ -25,7 +25,8 @@ public class BootStrapData implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         User testUser = new User("test", "test", "+79611251819");
-        Task read = new Task(testUser, "Read", "Read an important article", new Date(), TaskPriority.MIDDLE);
+        Task read = new Task(testUser, "Read", "Read an important article",
+                new Date(), new Date(), true, TaskPriority.MIDDLE);
 
 
         testUser.getTasks().add(read);

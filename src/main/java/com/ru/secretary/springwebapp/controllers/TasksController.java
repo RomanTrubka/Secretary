@@ -44,15 +44,16 @@ public class TasksController {
     public String addTask(Model model, Task task,
                           @AuthenticationPrincipal User currentUser) {
 
-        if ((task.getTitle() == null) || (task.getTitle()=="")) {
+        if ((task.getTitle() == null) || (task.getTitle().equals(""))) {
             model.addAttribute("resultMessage", "Title can`t be empty!");
             return "addTask";
         }
-
-        //String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        //var user = userRepository.findByName(userName);
-        task.setUser(currentUser);
-        currentUser.getTasks().add(task);
+        //I cant user @authprincipal here because of hibernate`s lazy load
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        var user = userRepository.findByName(userName);
+        task.setUser(user);
+        var tasks = user.getTasks();
+        tasks.add(task);
         taskRepository.save(task);
         model.addAttribute("resultMessage", "New task added.");
 

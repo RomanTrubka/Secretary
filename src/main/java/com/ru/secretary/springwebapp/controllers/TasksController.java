@@ -52,8 +52,7 @@ public class TasksController {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userRepository.findByName(userName);
         task.setUser(user);
-        var tasks = user.getTasks();
-        tasks.add(task);
+        user.getTasks().add(task);
         taskRepository.save(task);
         model.addAttribute("resultMessage", "New task added.");
 

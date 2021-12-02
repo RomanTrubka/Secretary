@@ -13,9 +13,13 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springwebapp</name>
 	<description>Simple scheduler web application</description>
+
 	<properties>
 		<java.version>17</java.version>
+		<telegrambot.starter.version>5.0.1</telegrambot.starter.version>
+		<libhonenumber.version>8.12.37</libhonenumber.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -52,10 +56,16 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber -->
+		<dependency>
+			<groupId>org.telegram</groupId>
+			<artifactId>telegrambots</artifactId>
+			<version>${telegrambot.starter.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.googlecode.libphonenumber</groupId>
 			<artifactId>libphonenumber</artifactId>
+			<version>${libhonenumber.version}</version>
 		</dependency>
 
 	</dependencies>

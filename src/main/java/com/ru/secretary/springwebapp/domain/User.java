@@ -1,9 +1,6 @@
 package com.ru.secretary.springwebapp.domain;
 
 
-import com.google.i18n.phonenumbers.PhoneNumberMatch;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber;
 import com.ru.secretary.springwebapp.util.PhoneNumberParser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +24,11 @@ public class User implements UserDetails {
 
     @Column(unique = true)
     private String phoneNumber;
+
+    @Column(unique = true)
+    private Long telegramChatId;
+
+    private boolean hasVerifiedPhoneNumber = false;
 
     private String password;
     private UserRole role= UserRole.USER;
@@ -71,6 +73,22 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean hasVerifiedPhoneNumber() {
+        return hasVerifiedPhoneNumber;
+    }
+
+    public Long getTelegramChatId() {
+        return telegramChatId;
+    }
+
+    public void setTelegramChatId(Long telegramChatId) {
+        this.telegramChatId = telegramChatId;
+    }
+
+    public void setVerifiedPhoneNumber(boolean hasVerifiedPhoneNumber) {
+        this.hasVerifiedPhoneNumber = hasVerifiedPhoneNumber;
     }
 
     public UserRole getRole() {

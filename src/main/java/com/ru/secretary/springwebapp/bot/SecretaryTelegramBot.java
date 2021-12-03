@@ -1,11 +1,18 @@
 package com.ru.secretary.springwebapp.bot;
 
+import com.ru.secretary.springwebapp.util.UserVerificator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class SecretaryTelegramBot extends TelegramLongPollingBot {
@@ -18,21 +25,54 @@ public class SecretaryTelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        if(update.hasMessage() && update.getMessage().hasText()) {
-            String message = update.getMessage().getText().trim();
-            String chatId = update.getMessage().getChatId().toString();
+        //if(update.hasMessage() && update.getMessage().hasText()) {
+        if(update.hasMessage()) {
+            Long chatId = update.getMessage().getChatId();
 
-            SendMessage sm = new SendMessage();
-            sm.setChatId(chatId);
-            sm.setText(message);
+            String message;
+
+            SendMessage messageToSend = new SendMessage();
+
+            if (update.getMessage().getContact() != null) {
+                String phoneNumber = update.getMessage().getContact().getPhoneNumber();
+                try {
+                    UserVerificator.VerifyUserPhoneNumber(phoneNumber, chatId);
+                    message = "We have set " + phoneNumber + " as your Secretary phone number";
+                } catch (VerifyError e) {
+                    message = e.getMessage();
+                }
+            } else {
+                message = "Hello! Share your phone number to use it in Secretary.";
+                addPhoneSharingButton(messageToSend, "Set my phone as Secretary phone number");
+            }
+
+            messageToSend.setChatId(chatId.toString());
+            messageToSend.setText(message);
 
             try {
-                execute(sm);
+                execute(messageToSend);
             } catch (TelegramApiException e) {
-                //TODO add logging to the project.
+                //TODO add logging to the project. log4j
                 e.printStackTrace();
             }
         }
+    }
+
+    public void addPhoneSharingButton(SendMessage message, String btnText) {
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        KeyboardButton keyboardButton = new KeyboardButton();
+        keyboardButton.setRequestContact(true);
+        keyboardButton.setText(btnText);
+
+        KeyboardRow keyboardRow = new KeyboardRow();
+        keyboardRow.add(keyboardButton);
+        List<KeyboardRow> rowList = new ArrayList<>();
+        rowList.add(keyboardRow);
+
+        replyKeyboardMarkup.setKeyboard(rowList);
+
+        message.setReplyMarkup(replyKeyboardMarkup);
     }
 
     @Override

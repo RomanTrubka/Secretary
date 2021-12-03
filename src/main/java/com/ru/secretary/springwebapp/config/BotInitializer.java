@@ -11,8 +11,8 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @Component
 public class BotInitializer {
-    final
-    SecretaryTelegramBot bot;
+
+    final SecretaryTelegramBot bot;
 
     public BotInitializer(SecretaryTelegramBot bot) {
         this.bot = bot;

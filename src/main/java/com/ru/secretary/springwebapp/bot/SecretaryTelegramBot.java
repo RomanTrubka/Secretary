@@ -25,12 +25,10 @@ public class SecretaryTelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        //if(update.hasMessage() && update.getMessage().hasText()) {
-        if(update.hasMessage()) {
+
+        if (update.hasMessage()) {
             Long chatId = update.getMessage().getChatId();
-
             String message;
-
             SendMessage messageToSend = new SendMessage();
 
             if (update.getMessage().getContact() != null) {

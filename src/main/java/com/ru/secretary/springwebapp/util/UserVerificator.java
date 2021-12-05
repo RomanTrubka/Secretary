@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-//Singleton
+//Static
 @Service
 public class UserVerificator {
 

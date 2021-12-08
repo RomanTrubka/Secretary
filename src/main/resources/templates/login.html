@@ -1,46 +1,34 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
 <head>
-  <title>Secretary</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-        crossorigin="anonymous">
+  <title>Login</title>
 </head>
-
 <body>
-
-<div th:insert="scripts :: scripts"></div>
-
-<div th:insert="navbar :: navbar"></div>
-
-<div class="container">
-
-<div th:if="${param.error}">
-  Invalid username and password.
+<div layout:fragment="content">
+  <div th:if="${param.error}" class="text-danger">
+    Invalid username and password.
+  </div>
+  <div th:if="${param.logout}" class="text-warning">
+    You have been logged out.
+  </div>
+  <p class="fw-bold fst-italic">Please enter your username and password</p>
+  <form th:action="@{/login}" method="post">
+    <div class="row mb-3">
+      <label for="inputUsername" class="col-sm-2 col-form-label">Username:</label>
+      <div class="col-sm-6">
+        <input id="inputUsername" class="form-control" type="text" name="username" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
+      <div class="col-sm-6">
+        <input id="inputPassword" class="form-control" type="password" name="password" />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+  </form>
+  <span>Don`t have an account?</span>
+  <a href="/registration">Register</a>
 </div>
-<div th:if="${param.logout}">
-  You have been logged out.
-</div>
-
-
-Enter your name and password
-<form th:action="@{/login}" method="post">
-  <div><label> User Name : <input type="text" name="username"/> </label></div>
-  <div><label> Password: <input type="password" name="password"/> </label></div>
-  <div><input type="submit" value="Sign In"/></div>
-</form>
-
-  Don`t have an account?
-<a href="/registration">Register</a>
-
-</div>
-
 </body>
-
 </html>

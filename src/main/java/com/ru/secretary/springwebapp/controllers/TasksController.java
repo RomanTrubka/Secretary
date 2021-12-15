@@ -36,7 +36,7 @@ public class TasksController {
     }
 
     @PostMapping("/tasks")
-    public String getTasks(Model model, @AuthenticationPrincipal User currentUser) {
+    public String getTasks() {
         return "redirect:/tasks";
     }
 
@@ -62,5 +62,10 @@ public class TasksController {
         model.addAttribute("resultMessage", "New task added.");
 
         return "redirect:/tasks";
+    }
+
+    @GetMapping("/scheduler")
+    public String showScheduler() {
+        return "/scheduler";
     }
 }

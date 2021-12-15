@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "task", schema = "public")
-@JsonIgnoreProperties(value = { "user", "id" })
+@JsonIgnoreProperties(value = { "user" })
 public class Task {
 
     @Id
@@ -23,6 +23,7 @@ public class Task {
     private String description = "";
     private Date startDate = new Date(); //TODO change Date to smth else
     private Date endDate = new Date();
+
     private boolean allDay = true;
     private TaskPriority priority = TaskPriority.LOW;
 
@@ -104,6 +105,10 @@ public class Task {
         this.priority = priority;
     }
 
+    public boolean isAllDay() { return allDay; }
+
+    public void setAllDay(boolean allDay) { this.allDay = allDay; }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -114,6 +119,7 @@ public class Task {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", priority=" + priority +
+                ", allDay=" + allDay +
                 '}';
     }
 

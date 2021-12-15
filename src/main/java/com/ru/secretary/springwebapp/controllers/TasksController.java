@@ -24,7 +24,7 @@ public class TasksController {
         this.taskRepository = taskRepository;
     }
 
-    @RequestMapping("/tasks")
+    @GetMapping("/tasks")
     public String getUserTasks(Model model,
                                @AuthenticationPrincipal User currentUser) {
 
@@ -32,7 +32,12 @@ public class TasksController {
 
         model.addAttribute("tasks", taskRepository.findAllByUser(currentUser));
 
-        return "tasks";
+        return "/tasks";
+    }
+
+    @PostMapping("/tasks")
+    public String getTasks(Model model, @AuthenticationPrincipal User currentUser) {
+        return "redirect:/tasks";
     }
 
     @GetMapping("/tasks/add")

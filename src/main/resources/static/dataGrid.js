@@ -1,4 +1,11 @@
 $(function() {
+    const priorities = [{
+        id: "LOW", name: 'Low',
+    }, {
+        id: "MIDDLE", name: 'Middle',
+    }, {
+        id: "HIGH", name: 'High',
+    }];
     function isNotEmpty(value) {
         return value !== undefined && value !== null && value !== '';
     }
@@ -89,12 +96,17 @@ $(function() {
             dataField: 'description'
         }, {
             dataField: 'startDate',
-            dataType: 'date'
+            dataType: 'datetime'
         },{
             dataField: 'endDate',
-            dataType: 'date'
+            dataType: 'datetime'
         },{
-            dataField: 'priority'
+            dataField: 'priority',
+            lookup: {
+                dataSource: priorities,
+                valueExpr: 'id',
+                displayExpr: 'name',
+            }
         },{
             dataField: 'allDay',
             dataType: 'boolean'

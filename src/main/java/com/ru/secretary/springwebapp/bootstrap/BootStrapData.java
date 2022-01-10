@@ -8,6 +8,7 @@ import com.ru.secretary.springwebapp.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @Component
@@ -25,8 +26,14 @@ public class BootStrapData implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         User testUser = new User("test", "test", "+79611251819");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        Date startDate = calendar.getTime();
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        Date endDate = calendar.getTime();
         Task read = new Task(testUser, "Read", "Read an important article",
-                new Date(), new Date(), true, TaskPriority.MIDDLE);
+                startDate, endDate, false, TaskPriority.MIDDLE);
 
 
         testUser.getTasks().add(read);

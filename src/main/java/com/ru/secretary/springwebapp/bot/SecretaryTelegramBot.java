@@ -17,6 +17,8 @@ import java.util.List;
 @Component
 public class SecretaryTelegramBot extends TelegramLongPollingBot {
 
+    private final UserVerificator userVerificator;
+
     @Value("${bot.username}")
     private String username;
 
@@ -24,6 +26,8 @@ public class SecretaryTelegramBot extends TelegramLongPollingBot {
     private String token;
 
     private static String REGION = "+7";
+
+    public SecretaryTelegramBot(UserVerificator userVerificator) { this.userVerificator = userVerificator; }
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -38,7 +42,7 @@ public class SecretaryTelegramBot extends TelegramLongPollingBot {
                 if (phoneNumber.startsWith("7") || phoneNumber.startsWith("8"))
                     phoneNumber = REGION + phoneNumber.substring(1, phoneNumber.length());
                 try {
-                    UserVerificator.VerifyUserPhoneNumber(phoneNumber, chatId);
+                    userVerificator.VerifyUserPhoneNumber(phoneNumber, chatId);
                     message = "We have set " + phoneNumber + " as your Secretary phone number";
                 } catch (VerifyError e) {
                     message = e.getMessage();

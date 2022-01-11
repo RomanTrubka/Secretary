@@ -23,6 +23,8 @@ public class SecretaryTelegramBot extends TelegramLongPollingBot {
     @Value("${bot.token}")
     private String token;
 
+    private static String REGION = "+7";
+
     @Override
     public void onUpdateReceived(Update update) {
 
@@ -33,6 +35,8 @@ public class SecretaryTelegramBot extends TelegramLongPollingBot {
 
             if (update.getMessage().getContact() != null) {
                 String phoneNumber = update.getMessage().getContact().getPhoneNumber();
+                if (phoneNumber.startsWith("7") || phoneNumber.startsWith("8"))
+                    phoneNumber = REGION + phoneNumber.substring(1, phoneNumber.length());
                 try {
                     UserVerificator.VerifyUserPhoneNumber(phoneNumber, chatId);
                     message = "We have set " + phoneNumber + " as your Secretary phone number";

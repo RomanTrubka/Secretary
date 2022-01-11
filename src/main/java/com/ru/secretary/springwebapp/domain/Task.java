@@ -24,29 +24,29 @@ public class Task {
     private Date startDate = new Date(); //TODO change Date to smth else
     private Date endDate = new Date();
 
-    private boolean allDay = true;
+    private boolean allDay = false;
     private TaskPriority priority = TaskPriority.LOW;
 
     public Task() {
     }
 
-    public Task(User user, String title, String description, Date startDate, Date endDate,
-                boolean allDay, TaskPriority priority) {
+    public Task(User user, String title, String description, Date startDate, Date endDate, TaskPriority priority) {
         this.user = user;
         this.title = title;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.allDay = allDay;
         this.priority = priority;
     }
 
     //Quick constructor
-    public Task(User user, String title, String description, Date startDate) {
+    public Task(User user, String title, String description, Date startDate, Boolean allDay) {
         this.user = user;
         this.title = title;
         this.description = description;
         this.startDate = startDate;
+        this.endDate = startDate;
+        this.allDay = allDay;
     }
 
     public Long getId() {

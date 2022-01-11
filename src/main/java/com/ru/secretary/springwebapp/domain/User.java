@@ -45,6 +45,11 @@ public class User implements UserDetails {
         this.phoneNumber = PhoneNumberParser.getInstance().ParsePhoneNumber(phoneNumber);
     }
 
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(getRole());

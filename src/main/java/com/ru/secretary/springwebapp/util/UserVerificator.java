@@ -10,13 +10,13 @@ import javax.annotation.PostConstruct;
 @Service
 public class UserVerificator {
 
-    private static UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private UserVerificator(UserRepository userRepository) {
-        UserVerificator.userRepository = userRepository;
+        this.userRepository = userRepository;
     }
 
-    public static void VerifyUserPhoneNumber(String phoneNumber, Long chatId) throws IllegalArgumentException {
+    public void VerifyUserPhoneNumber(String phoneNumber, Long chatId) throws IllegalArgumentException {
 
         var formattedPhoneNumber = PhoneNumberParser.getInstance().ParsePhoneNumber(phoneNumber);
 

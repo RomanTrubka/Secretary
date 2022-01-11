@@ -2,7 +2,6 @@ package com.ru.secretary.springwebapp.util;
 
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 
-//Singleton
 public class PhoneNumberParser {
 
     private static PhoneNumberParser instance;

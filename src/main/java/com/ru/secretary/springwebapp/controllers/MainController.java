@@ -16,9 +16,6 @@ public class MainController {
 
     @RequestMapping("/")
     public String getUsers(Model model) {
-
-        //model.addAttribute("users", taskRepository.findAll());
-
         return "main";
     }
 

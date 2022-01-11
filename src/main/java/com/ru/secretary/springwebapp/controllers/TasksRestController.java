@@ -15,7 +15,6 @@ public class TasksRestController {
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
 
-
     public TasksRestController(UserRepository userRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;

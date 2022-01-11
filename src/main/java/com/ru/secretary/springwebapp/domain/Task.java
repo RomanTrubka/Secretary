@@ -15,20 +15,18 @@ public class Task {
     private Long id;
 
     @ManyToOne
-    //@JoinColumn(name="user_id", nullable=false)
     @JoinColumn()
-    private User user; //TODO should it be like this or we need to keep user_id only?
+    private User user;
 
     private String title;
     private String description = "";
-    private Date startDate = new Date(); //TODO change Date to smth else
+    private Date startDate = new Date();
     private Date endDate = new Date();
 
     private boolean allDay = false;
     private TaskPriority priority = TaskPriority.LOW;
 
-    public Task() {
-    }
+    public Task() { }
 
     public Task(User user, String title, String description, Date startDate, Date endDate, TaskPriority priority) {
         this.user = user;
@@ -39,7 +37,6 @@ public class Task {
         this.priority = priority;
     }
 
-    //Quick constructor
     public Task(User user, String title, String description, Date startDate, Boolean allDay) {
         this.user = user;
         this.title = title;

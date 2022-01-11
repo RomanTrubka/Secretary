@@ -7,11 +7,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-//Static
 @Service
 public class UserVerificator {
 
-    @Autowired
     private static UserRepository userRepository;
 
     private UserVerificator(UserRepository userRepository) {

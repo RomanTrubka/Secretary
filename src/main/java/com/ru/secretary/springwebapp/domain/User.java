@@ -1,6 +1,5 @@
 package com.ru.secretary.springwebapp.domain;
 
-
 import com.ru.secretary.springwebapp.util.PhoneNumberParser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,8 +35,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy =  "user")
     private Set<Task> tasks = new HashSet<>();
 
-    public User() {
-    }
+    public User() { }
 
     public User(String name, String password, String phoneNumber) {
         this.name = name;

@@ -6,6 +6,7 @@ import com.ru.secretary.springwebapp.domain.User;
 import com.ru.secretary.springwebapp.repositories.TaskRepository;
 import com.ru.secretary.springwebapp.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -17,16 +18,18 @@ public class BootStrapData implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public BootStrapData(UserRepository userRepository, TaskRepository taskRepository) {
+    public BootStrapData(UserRepository userRepository, TaskRepository taskRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
-        User testUser = new User("rtrubka", "test");
+        User testUser = new User("test", "test");
 
         SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
@@ -54,7 +57,9 @@ public class BootStrapData implements CommandLineRunner {
                 dateTimeFormatter.parse("20.01.2022 14:00"),
                 TaskPriority.HIGH));
 
+        testUser.setPassword(passwordEncoder.encode(testUser.getPassword()));
         userRepository.save(testUser);
+
         for (Task task : taskList) {
             testUser.getTasks().add(task);
 

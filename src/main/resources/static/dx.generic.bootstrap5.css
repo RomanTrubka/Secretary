@@ -9932,8 +9932,8 @@
   text-align: center;
   line-height: 0;
   border: 1px solid #dee2e6;
-  background-color: #000;
-  color: #fff;
+  /*background-color: #000;*/
+  /*color: #fff;*/
   -webkit-box-shadow: 0 2px 4px rgba(0,0,0,.1);
   box-shadow: 0 2px 4px rgba(0,0,0,.1);
   border-radius: 4px;
@@ -9953,7 +9953,7 @@
 }
 .dx-tooltip-wrapper.dx-popover-wrapper .dx-popover-arrow::after {
   border: 1px solid #dee2e6;
-  background: #000;
+  /*background: #000;*/
 }
 .dx-slider-label {
   position: absolute;

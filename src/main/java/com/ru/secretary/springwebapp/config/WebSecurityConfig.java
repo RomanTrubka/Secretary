@@ -11,13 +11,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-//    private final DataSource dataSource;
-//
-//    public WebSecurityConfig(DataSource dataSource) {
-//        this.dataSource = dataSource;
-//    }
-
     private final UserService userService;
 
     public WebSecurityConfig(UserService userService) {
@@ -27,7 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/", "/registration", "/static/**").permitAll()
                     .anyRequest().authenticated()

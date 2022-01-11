@@ -10,8 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
@@ -31,30 +30,30 @@ public class BootStrapData implements CommandLineRunner {
 
         User testUser = new User("test", "test");
 
-        SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("MMM dd yyyy HH:mm");
+        SimpleDateFormat shortDateTimeFormatter = new SimpleDateFormat("MMM dd yyyy");
+        var date = shortDateTimeFormatter.format(new Date());
 
         List<Task> taskList = new ArrayList<>();
 
         taskList.add(new Task(testUser,
                 "Cinema",
                 "Spider-man",
-                dateTimeFormatter.parse("20.01.2022 20:00"),
-                dateTimeFormatter.parse("20.01.2022 22:30"),
+                dateTimeFormatter.parse(date + " 20:00"),
+                dateTimeFormatter.parse(date + " 22:30"),
                 TaskPriority.MIDDLE));
 
         taskList.add(new Task(testUser, "Dentist", "Go to the dentist, room 207, Rikova Olga Nikolaevna",
-                dateTimeFormatter.parse("20.01.2022 14:30"), false));
+                dateTimeFormatter.parse(date + " 14:30"), false));
 
         taskList.add(new Task(testUser, "Brother`s birthday", "Don`t forget to buy his favourite Becherovka",
-                dateTimeFormatter.parse("21.01.2022 14:30"), true));
+                dateTimeFormatter.parse(date + " 18:00"), true));
 
-        taskList.add(new Task(testUser, "Dinner with Anzhela", "She loves roses",
-                dateTimeFormatter.parse("20.01.2022 17:00"), false));
 
         taskList.add(new Task(testUser, "Car service",
                 "Don`t forget spare parts and oil",
-                dateTimeFormatter.parse("20.01.2022 12:00"),
-                dateTimeFormatter.parse("20.01.2022 14:00"),
+                dateTimeFormatter.parse(date + " 12:00"),
+                dateTimeFormatter.parse(date + " 14:00"),
                 TaskPriority.HIGH));
 
         testUser.setPassword(passwordEncoder.encode(testUser.getPassword()));
